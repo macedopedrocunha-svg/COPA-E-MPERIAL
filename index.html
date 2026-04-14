@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>COPA E-MPERIAL - Tabela de Jogos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* ADICIONANDO A FOTO NO FUNDO */
+            background-image: url('imperial.jpg'); /* O nome do arquivo deve ser este */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: #1A1A1A; /* Cor de reserva */
+            color: #eeeeee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Camada para escurecer o fundo e ajudar na leitura */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        } 
+
+        .event-header {
+            background-color: rgba(58, 124, 165, 0.85); /* Azul da logo com leve transparência */
+            padding: 20px;
+            border-bottom: 7px solid #FBAE17;
+            margin-bottom: 20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        h1 { margin: 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* TRANSPARÊNCIA DE 75% NA TABELA */
+            background-color: rgba(36, 41, 47, 0.75); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px); /* Efeito de vidro embaçado */
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(49, 55, 62, 0.9);
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #FBAE17; /* Cabeçalho em Amarelo Imperial */
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        .team-name {
+            font-weight: bold;
+            width: 35%;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .team-right { text-align: right; }
+
+        .score-cell {
+            text-align: center;
+            width: 15%;
+        }
+
+        .score {
+            background-color: #FBAE17; /* Amarelo no Placar */
+            color: #1A1A1A; /* Texto escuro para contraste */
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace; 
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .status { font-size: 12px; color: #bbb; text-align: center; }
+        .live { color: #ff4655; font-weight: bold; text-shadow: 0 0 5px rgba(255,70,85,0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="event-header">
+            <h1>COPA E-MPERIAL</h1>
+            <p>STAGE 1 • SEMANA 1</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>HORA</th>
+                    <th style="text-align: right;">TIME A</th>
+                    <th style="text-align: center;">PLACAR</th>
+                    <th>TIME B</th>
+                    <th style="text-align: center;">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>17:00</td>
+                    <td class="team-name team-right">TIME U</td> 
+                    <td class="score-cell"><span class="score">0 - 0</span></td> 
+                    <td class="team-name">TIME O</td> 
+                    <td class="status">TBD</td>
+                </tr>
+                <tr>
+                    <td>18:00</td>
+                    <td class="team-name team-right">TIME A</td>
+                    <td class="score-cell"><span class="score">0 - 0</span></td>
+                    <td class="team-name">TIME P</td>
+                    <td class="status">TBD</td>
+                </tr>
+                <tr>
+                    <td>19:00</td>
+                    <td class="team-name team-right">TIME X</td>
+                    <td class="score-cell"><span class="score">0 - 0</span></td>
+                    <td class="team-name">TIME Z</td>
+                    <td class="status live">AO VIVO</td>
+                </tr>
+                <tr>
+                    <td>20:00</td>
+                    <td class="team-name team-right">TIME W</td>
+                    <td class="score-cell"><span class="score">0 - 0</span></td>
+                    <td class="team-name">TIME Y</td>
+                    <td class="status">TBD</td>
+                </tr>
+                <tr><td>21:00</td><td class="team-name team-right">TIME DO MACEDO</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME G</td><td class="status">TBD</td></tr>
+                <tr><td>21:30</td><td class="team-name team-right">TIME B</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME H</td><td class="status">TBD</td></tr>
+                <tr><td>22:00</td><td class="team-name team-right">MIBR</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME I</td><td class="status">TBD</td></tr>
+                <tr><td>22:30</td><td class="team-name team-right">TIME C</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME J</td><td class="status">TBD</td></tr>
+                <tr><td>23:00</td><td class="team-name team-right">TIME D</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME K</td><td class="status">TBD</td></tr>
+                <tr><td>23:30</td><td class="team-name team-right"> TIME E</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name"> TIME L</td><td class="status">TBD</td></tr>
+                <tr><td>00:00</td><td class="team-name team-right">TIME F</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME M</td><td class="status">TBD</td></tr>
+                <tr><td>00:30</td><td class="team-name team-right">TIME G</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME N</td><td class="status">TBD</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
