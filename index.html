@@ -25,7 +25,7 @@
             background: rgba(0, 0, 0, 0.5); 
             z-index: -1;
         }
-
+ 
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -93,6 +93,18 @@
 
         .status { font-size: 12px; color: #bbb; text-align: center; }
         .live { color: #ff4655; font-weight: bold; text-shadow: 0 0 5px rgba(255,70,85,0.5); }
+
+        .live-link {
+     color: #ff4655; /* Cor vermelha que você já estava usando */
+        text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255,70,85,0.5);
+}
+
+.live-link:hover {
+    text-decoration: underline; /* Adiciona sublinhado apenas quando passar o mouse */
+    color: #ff7a85; /* Muda levemente a cor ao passar o mouse */
+}
     </style>
 </head>
 <body>
@@ -133,7 +145,9 @@
                     <td class="team-name team-right">TIME X</td>
                     <td class="score-cell"><span class="score">0 - 0</span></td>
                     <td class="team-name">TIME Z</td>
-                    <td class="status live">AO VIVO</td>
+                    <td class="status">
+                     <a href="https://www.twitch.tv/atlcompufpel" target="_blank" class="live-link">AO VIVO</a>
+                </td>
                 </tr>
                 <tr>
                     <td>20:00</td>
@@ -142,7 +156,7 @@
                     <td class="team-name">TIME Y</td>
                     <td class="status">TBD</td>
                 </tr>
-                <tr><td>21:00</td><td class="team-name team-right">TIME DO MACEDO</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME G</td><td class="status">TBD</td></tr>
+                <tr><td>21:00</td><td class="team-name team-right">TIME DO MACEDAO</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME G</td><td class="status">TBD</td></tr>
                 <tr><td>21:30</td><td class="team-name team-right">TIME B</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME H</td><td class="status">TBD</td></tr>
                 <tr><td>22:00</td><td class="team-name team-right">MIBR</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME I</td><td class="status">TBD</td></tr>
                 <tr><td>22:30</td><td class="team-name team-right">TIME C</td><td class="score-cell"><span class="score">0 - 0</span></td><td class="team-name">TIME J</td><td class="status">TBD</td></tr>
