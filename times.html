@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>EQUIPES - COPA E-MPERIAL</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('imperial.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #eeeeee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: -1;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* Menu de Navegação */
+        .nav-menu { margin-bottom: 20px; display: flex; gap: 10px; }
+        .nav-link {
+            text-decoration: none; color: white; background: rgba(58, 124, 165, 0.8);
+            padding: 10px 20px; border-radius: 4px; border-bottom: 3px solid #FBAE17;
+            font-weight: bold; transition: 0.3s;
+        }
+        .nav-link:hover { background: #3A7CA5; }
+
+        /* Grid de Times */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Card do Time */
+        .team-card {
+            background: rgba(36, 41, 47, 0.9);
+            border: 1px solid rgba(251, 174, 23, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .team-card:hover {
+            border-color: #FBAE17;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .team-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
+
+        .team-name {
+            font-size: 1.2em;
+            color: #FBAE17;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Lista de Players (Escondida por padrão) */
+        .player-list {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Esconde */
+            transition: opacity 0.3s ease;
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+
+        .team-card:hover .player-list {
+            opacity: 1; /* Mostra no hover */
+        }
+
+        .player-item {
+            padding: 5px 0;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #fff;
+            border-bottom: 1px solid rgba(251, 174, 23, 0.2);
+            width: 80%;
+        }
+
+        .player-item span {
+            color: #FBAE17;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">⬅ JOGOS</a>
+            <a href="classificacao.html" class="nav-link">TABELA GERAL</a>
+            <a href="#" class="nav-link" style="background: #FBAE17; color: #1A1A1A;">TIMES</a>
+        </div>
+
+        <h1 style="text-align: center; border-bottom: 3px solid #FBAE17; padding-bottom: 10px;">EQUIPES PARTICIPANTES</h1>
+
+        <div class="teams-grid">
+            
+            <div class="team-card">
+                <img src="logo_imperial.png" alt="Imperial" class="team-logo">
+                <span class="team-name">IMPERIAL</span>
+                <p style="font-size: 0.8em; color: #bbb;">Brasil</p>
+                
+                <ul class="player-list">
+                    <li class="player-item"><span>🇧🇷</span> HEN1</li>
+                    <li class="player-item"><span>🇧🇷</span> felps</li>
+                    <li class="player-item"><span>🇧🇷</span> VINI</li>
+                    <li class="player-item"><span>🇧🇷</span> decenter</li>
+                    <li class="player-item"><span>🇧🇷</span> noway</li>
+                </ul>
+            </div>
+
+            <div class="team-card">
+                <img src="logo_furia.png" alt="Furia" class="team-logo">
+                <span class="team-name">FURIA</span>
+                <p style="font-size: 0.8em; color: #bbb;">Brasil</p>
+                
+                <ul class="player-list">
+                    <li class="player-item"><span>🇧🇷</span> FalleN</li>
+                    <li class="player-item"><span>🇧🇷</span> KSCERATO</li>
+                    <li class="player-item"><span>🇧🇷</span> yuurih</li>
+                    <li class="player-item"><span>🇧🇷</span> chelo</li>
+                    <li class="player-item"><span>🇧🇷</span> arT</li>
+                </ul>
+            </div>
+
+            </div>
+    </div>
+
+</body>
+</html>
