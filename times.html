@@ -25,14 +25,34 @@
 
         .container { max-width: 1100px; margin: 0 auto; }
 
-        /* Menu de Navegação */
-        .nav-menu { margin-bottom: 20px; display: flex; gap: 10px; }
-        .nav-link {
-            text-decoration: none; color: white; background: rgba(58, 124, 165, 0.8);
-            padding: 10px 20px; border-radius: 4px; border-bottom: 3px solid #FBAE17;
-            font-weight: bold; transition: 0.3s;
+        /* MENU UNIFICADO */
+        .nav-menu {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            padding-top: 20px;
         }
-        .nav-link:hover { background: #3A7CA5; }
+
+        .nav-link {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-blue {
+            color: white;
+            background: rgba(58, 124, 165, 0.8);
+            border-bottom: 3px solid #FBAE17;
+        }
+        .btn-blue:hover { background: #3A7CA5; }
+
+        .btn-active {
+            background: #FBAE17;
+            color: #1A1A1A;
+        }
 
         /* Grid de Times */
         .teams-grid {
@@ -53,6 +73,11 @@
             transition: all 0.4s ease;
             overflow: hidden;
             cursor: pointer;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .team-card:hover {
@@ -62,10 +87,12 @@
         }
 
         .team-logo {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             margin-bottom: 15px;
             filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            background: rgba(255,255,255,0.1); /* Espaço reservado para logo */
+            border-radius: 50%;
         }
 
         .team-name {
@@ -73,9 +100,10 @@
             color: #FBAE17;
             margin-bottom: 5px;
             display: block;
+            text-transform: uppercase;
         }
 
-        /* Lista de Players (Escondida por padrão) */
+        /* Lista de Players */
         .player-list {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -84,14 +112,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0; /* Esconde */
+            opacity: 0;
             transition: opacity 0.3s ease;
             list-style: none;
             padding: 0; margin: 0;
         }
 
         .team-card:hover .player-list {
-            opacity: 1; /* Mostra no hover */
+            opacity: 1;
         }
 
         .player-item {
@@ -102,54 +130,40 @@
             border-bottom: 1px solid rgba(251, 174, 23, 0.2);
             width: 80%;
         }
-
-        .player-item span {
-            color: #FBAE17;
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="nav-menu">
-            <a href="index.html" class="nav-link">⬅ JOGOS</a>
-            <a href="classificacao.html" class="nav-link">TABELA GERAL</a>
-            <a href="#" class="nav-link" style="background: #FBAE17; color: #1A1A1A;">TIMES</a>
+            <a href="index.html" class="nav-link btn-blue">JOGOS</a>
+            <a href="classificacao.html" class="nav-link btn-blue">TABELA GERAL</a>
+            <a href="times.html" class="nav-link btn-active">TIMES</a>
         </div>
 
         <h1 style="text-align: center; border-bottom: 3px solid #FBAE17; padding-bottom: 10px;">EQUIPES PARTICIPANTES</h1>
 
         <div class="teams-grid">
             
-            <div class="team-card">
-                <img src="logo_imperial.png" alt="Imperial" class="team-logo">
-                <span class="team-name">IMPERIAL</span>
-                <p style="font-size: 0.8em; color: #bbb;">Brasil</p>
-                
-                <ul class="player-list">
-                    <li class="player-item"><span>🇧🇷</span> HEN1</li>
-                    <li class="player-item"><span>🇧🇷</span> felps</li>
-                    <li class="player-item"><span>🇧🇷</span> VINI</li>
-                    <li class="player-item"><span>🇧🇷</span> decenter</li>
-                    <li class="player-item"><span>🇧🇷</span> noway</li>
-                </ul>
-            </div>
-
-            <div class="team-card">
-                <img src="logo_furia.png" alt="Furia" class="team-logo">
-                <span class="team-name">FURIA</span>
-                <p style="font-size: 0.8em; color: #bbb;">Brasil</p>
-                
-                <ul class="player-list">
-                    <li class="player-item"><span>🇧🇷</span> FalleN</li>
-                    <li class="player-item"><span>🇧🇷</span> KSCERATO</li>
-                    <li class="player-item"><span>🇧🇷</span> yuurih</li>
-                    <li class="player-item"><span>🇧🇷</span> chelo</li>
-                    <li class="player-item"><span>🇧🇷</span> arT</li>
-                </ul>
-            </div>
-
+            <script>
+                // Script simples para gerar as 16 caixas sem encher o código de texto repetido
+                for (let i = 1; i <= 16; i++) {
+                    document.write(`
+                        <div class="team-card">
+                            <div class="team-logo"></div> <span class="team-name">Inserir Texto</span>
+                            <p style="font-size: 0.8em; color: #bbb;">País / Região</p>
+                            
+                            <ul class="player-list">
+                                <li class="player-item">Cadastrar</li>
+                                <li class="player-item">Cadastrar</li>
+                                <li class="player-item">Cadastrar</li>
+                                <li class="player-item">Cadastrar</li>
+                                <li class="player-item">Cadastrar</li>
+                            </ul>
+                        </div>
+                    `);
+                }
+            </script>
             </div>
     </div>
 
