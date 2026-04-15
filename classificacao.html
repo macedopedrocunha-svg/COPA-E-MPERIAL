@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('imperial.jpg'); /* Mesma imagem de fundo */
+            background-image: url('imperial.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -25,25 +25,36 @@
 
         .container { max-width: 1000px; margin: 0 auto; }
 
-        /* Menu para navegar entre os Jogos e a Classificação */
+        /* MENU CORRIGIDO */
         .nav-menu {
             margin-bottom: 20px;
             display: flex;
             gap: 10px;
+            padding-top: 20px;
         }
 
         .nav-link {
             text-decoration: none;
-            color: white;
-            background: rgba(58, 124, 165, 0.8);
             padding: 10px 20px;
             border-radius: 4px;
-            border-bottom: 3px solid #FBAE17;
             font-weight: bold;
             transition: 0.3s;
+            display: inline-block;
         }
 
-        .nav-link:hover { background: #3A7CA5; }
+        /* Botão Azul (Inativo) */
+        .btn-blue {
+            color: white;
+            background: rgba(58, 124, 165, 0.8);
+            border-bottom: 3px solid #FBAE17;
+        }
+        .btn-blue:hover { background: #3A7CA5; }
+
+        /* Botão Amarelo (Ativo nesta página) */
+        .btn-active {
+            background: #FBAE17;
+            color: #1A1A1A;
+        }
 
         .header {
             background-color: rgba(58, 124, 165, 0.85);
@@ -77,20 +88,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Estilo para a posição (1º, 2º...) */
         .pos { width: 50px; font-weight: bold; color: #FBAE17; }
-
-        /* Alinhamento do nome do time à esquerda */
         .team-col { text-align: left; font-weight: bold; }
-
-        /* Destaque para vitórias */
         .v-cell { color: #4CAF50; font-weight: bold; }
-        /* Destaque para derrotas */
         .d-cell { color: #FF4655; font-weight: bold; }
 
         tr:hover { background: rgba(255, 255, 255, 0.05); }
-
-        /* Cores para o G4 (Zona de Classificação) */
         .top-4 { border-left: 4px solid #4CAF50; }
     </style>
 </head>
@@ -98,8 +101,9 @@
 
     <div class="container">
         <div class="nav-menu">
-            <a href="index.html" class="nav-link">⬅ JOGOS</a>
-            <a href="#" class="nav-link" style="background: #FBAE17; color: #1A1A1A;">TABELA GERAL</a>
+            <a href="index.html" class="nav-link btn-blue">JOGOS</a>
+            <a href="classificacao.html" class="nav-link btn-active">TABELA GERAL</a>
+            <a href="times.html" class="nav-link btn-blue">TIMES</a>
         </div>
 
         <div class="header">
@@ -120,64 +124,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="top-4">
-                    <td class="pos">1º</td>
-                    <td class="team-col">IMPERIAL</td>
-                    <td class="v-cell">3</td>
-                    <td class="d-cell">0</td>
-                    <td>48</td>
-                    <td>+12</td>
-                    <td>9</td>
-                </tr>
-                <tr class="top-4">
-                    <td class="pos">2º</td>
-                    <td class="team-col">FURIA</td>
-                    <td class="v-cell">2</td>
-                    <td class="d-cell">1</td>
-                    <td>40</td>
-                    <td>+5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td class="pos">3º</td>
-                    <td class="team-col">MIBR</td>
-                    <td class="v-cell">1</td>
-                    <td class="d-cell">2</td>
-                    <td>32</td>
-                    <td>-4</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td class="pos">4º</td>
-                    <td class="team-col">PAIN</td>
-                    <td class="v-cell">0</td>
-                    <td class="d-cell">3</td>
-                    <td>20</td>
-                    <td>-13</td>
-                    <td>0</td>
-                </tr>
-            </tbody>
+                </tbody>
         </table>
     </div>
-        <script>
-    // Substitua pelo seu link de publicação (CSV) do Google Sheets
+
+<script>
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?output=csv';
 
     async function carregarClassificacao() {
         try {
             const response = await fetch(sheetURL);
             const data = await response.text();
-            const linhas = data.split('\n').slice(1); // Ignora o cabeçalho
+            const linhas = data.split('\n').slice(1);
             
             const tabelaCorpo = document.querySelector('tbody');
-            tabelaCorpo.innerHTML = ''; // Limpa a tabela antes de atualizar
+            tabelaCorpo.innerHTML = '';
 
             linhas.forEach((linha, index) => {
                 const colunas = linha.split(',');
                 if (colunas.length < 2) return;
 
                 const tr = document.createElement('tr');
-                // Adiciona a borda verde para os 4 primeiros (G4)
                 if (index < 4) tr.classList.add('top-4');
 
                 tr.innerHTML = `
@@ -196,9 +163,7 @@
         }
     }
 
-    // Carrega ao abrir a página
     carregarClassificacao();
-    // Atualiza automaticamente a cada 60 segundos sem precisar de F5
     setInterval(carregarClassificacao, 60000);
 </script>
 </body>
