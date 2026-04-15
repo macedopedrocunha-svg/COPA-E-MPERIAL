@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CLASSIFICAÇÃO - COPA E-MPERIAL</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('imperial.jpg'); /* Mesma imagem de fundo */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #eeeeee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); 
+            z-index: -1;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* Menu para navegar entre os Jogos e a Classificação */
+        .nav-menu {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            background: rgba(58, 124, 165, 0.8);
+            padding: 10px 20px;
+            border-radius: 4px;
+            border-bottom: 3px solid #FBAE17;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover { background: #3A7CA5; }
+
+        .header {
+            background-color: rgba(58, 124, 165, 0.85);
+            padding: 20px;
+            border-bottom: 7px solid #FBAE17;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(36, 41, 47, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(26, 26, 26, 0.9);
+            color: #FBAE17;
+            padding: 15px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estilo para a posição (1º, 2º...) */
+        .pos { width: 50px; font-weight: bold; color: #FBAE17; }
+
+        /* Alinhamento do nome do time à esquerda */
+        .team-col { text-align: left; font-weight: bold; }
+
+        /* Destaque para vitórias */
+        .v-cell { color: #4CAF50; font-weight: bold; }
+        /* Destaque para derrotas */
+        .d-cell { color: #FF4655; font-weight: bold; }
+
+        tr:hover { background: rgba(255, 255, 255, 0.05); }
+
+        /* Cores para o G4 (Zona de Classificação) */
+        .top-4 { border-left: 4px solid #4CAF50; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">⬅ JOGOS</a>
+            <a href="#" class="nav-link" style="background: #FBAE17; color: #1A1A1A;">TABELA GERAL</a>
+        </div>
+
+        <div class="header">
+            <h1>CLASSIFICAÇÃO</h1>
+            <p>COPA E-MPERIAL | SEASON 1</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="team-col">TIME</th>
+                    <th>V</th>
+                    <th>D</th>
+                    <th>RD GANHOS</th>
+                    <th>SALDO RD</th>
+                    <th>PONTOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="top-4">
+                    <td class="pos">1º</td>
+                    <td class="team-col">IMPERIAL</td>
+                    <td class="v-cell">3</td>
+                    <td class="d-cell">0</td>
+                    <td>48</td>
+                    <td>+12</td>
+                    <td>9</td>
+                </tr>
+                <tr class="top-4">
+                    <td class="pos">2º</td>
+                    <td class="team-col">FURIA</td>
+                    <td class="v-cell">2</td>
+                    <td class="d-cell">1</td>
+                    <td>40</td>
+                    <td>+5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td class="pos">3º</td>
+                    <td class="team-col">MIBR</td>
+                    <td class="v-cell">1</td>
+                    <td class="d-cell">2</td>
+                    <td>32</td>
+                    <td>-4</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td class="pos">4º</td>
+                    <td class="team-col">PAIN</td>
+                    <td class="v-cell">0</td>
+                    <td class="d-cell">3</td>
+                    <td>20</td>
+                    <td>-13</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <script>
+    // Substitua pelo seu link de publicação (CSV) do Google Sheets
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?output=csv';
+
+    async function carregarClassificacao() {
+        try {
+            const response = await fetch(sheetURL);
+            const data = await response.text();
+            const linhas = data.split('\n').slice(1); // Ignora o cabeçalho
+            
+            const tabelaCorpo = document.querySelector('tbody');
+            tabelaCorpo.innerHTML = ''; // Limpa a tabela antes de atualizar
+
+            linhas.forEach((linha, index) => {
+                const colunas = linha.split(',');
+                if (colunas.length < 2) return;
+
+                const tr = document.createElement('tr');
+                // Adiciona a borda verde para os 4 primeiros (G4)
+                if (index < 4) tr.classList.add('top-4');
+
+                tr.innerHTML = `
+                    <td class="pos">${colunas[0]}</td>
+                    <td class="team-col">${colunas[1]}</td>
+                    <td class="v-cell">${colunas[2]}</td>
+                    <td class="d-cell">${colunas[3]}</td>
+                    <td>${colunas[4]}</td>
+                    <td>${colunas[5]}</td>
+                    <td><strong>${colunas[6]}</strong></td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar os dados:', error);
+        }
+    }
+
+    // Carrega ao abrir a página
+    carregarClassificacao();
+    // Atualiza automaticamente a cada 60 segundos sem precisar de F5
+    setInterval(carregarClassificacao, 60000);
+</script>
+</body>
+</html>
