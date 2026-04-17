@@ -131,19 +131,20 @@
 <script>
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?gid=1383739588&single=true&output=csv';
 
-   async function carregarClassificacao() {
+  async function carregarClassificacao() {
     try {
         const response = await fetch(sheetClassificacaoURL);
         const data = await response.text();
         
-        // Divide o conteúdo em linhas
+        // Divide o conteúdo em linhas e remove espaços vazios
         let linhas = data.split('\n').map(l => l.trim()).filter(l => l !== "");
 
-        // REGRA DE OURO: Se a primeira linha tiver títulos (ex: "Posição", "Time", "#"), nós removemos.
-        // Se a primeira linha já for um time, o código NÃO remove e o 1º lugar aparece!
-        if (linhas[0].toUpperCase().includes("TIME") || linhas[0].includes("#") || linhas[0].toUpperCase().includes("POSIÇÃO")) {
-            linhas.shift(); 
-        }
+        // FILTRO DEFINITIVO: Mantém apenas linhas que começam com um número (a posição)
+        // Isso remove automaticamente cabeçalhos como "Posição", "#" ou linhas de texto.
+        linhas = linhas.filter(linha => {
+            const primeiraColuna = linha.split(/[,;]/)[0];
+            return !isNaN(parseInt(primeiraColuna)); 
+        });
 
         const tabelaCorpo = document.querySelector('#tabela-classificacao tbody');
         tabelaCorpo.innerHTML = ''; 
