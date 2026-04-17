@@ -135,7 +135,11 @@
         try {
             const response = await fetch(sheetURL);
             const data = await response.text();
-            const linhas = data.split('\n').slice(1); 
+            const linhas = data.split('\n');
+             // Se a primeira linha contiver a palavra "TIME" ou "#", nós pulamos, senão, usamos tudo.
+            if (linhas[0].toUpperCase().includes("TIME") || linhas[0].includes("#")) {
+                linhas.shift(); 
+}
             
             const tabelaCorpo = document.querySelector('tbody');
             tabelaCorpo.innerHTML = ''; 
