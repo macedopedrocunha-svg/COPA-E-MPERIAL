@@ -133,33 +133,32 @@
 
   async function carregarClassificacao() {
     try {
-        // Use o link da aba TabelaOficial aqui
         const response = await fetch(sheetClassificacaoURL);
         const data = await response.text();
         
-        // Divide em linhas e limpa espaços
+        // Divide em linhas e remove linhas vazias
         let linhas = data.split('\n').map(l => l.trim()).filter(l => l !== "");
 
-        // Se a primeira linha for o cabeçalho (ex: tem a palavra "Time" ou "Posição"), removemos
-        if (linhas[0].toUpperCase().includes("TIME") || linhas[0].toUpperCase().includes("POS")) {
-            linhas.shift();
-        }
+        // ATENÇÃO: Como a tua planilha JÁ COMEÇA nos times (Linha 1), 
+        // NÃO vamos usar o .shift() nem o .slice(1).
+        // Vamos ler todas as linhas que o Google enviar.
 
         const tabelaCorpo = document.querySelector('#tabela-classificacao tbody');
         tabelaCorpo.innerHTML = ''; 
 
         linhas.forEach((linha) => {
-            // Tenta separar por vírgula ou ponto e vírgula
             const col = linha.split(/[,;]/);
             
-            // Só cria a linha se tiver pelo menos o nome do time
+            // Verifica se a linha tem o nome do time na segunda coluna
             if (col.length >= 2 && col[1].trim() !== "") {
                 const tr = document.createElement('tr');
+                
+                // col[0] é a posição (2, 4, 3...), col[1] é o nome (Time B...), col[6] são os pontos
                 tr.innerHTML = `
-                    <td>${col[0].replace('º', '')}º</td>
+                    <td>${col[0]}º</td>
                     <td class="team-name">${col[1]}</td>
-                    <td class="stat-cell" style="color: #4CAF50;">${col[2] || 0}</td>
-                    <td class="stat-cell" style="color: #f44336;">${col[3] || 0}</td>
+                    <td class="stat-cell">${col[2] || 0}</td>
+                    <td class="stat-cell">${col[3] || 0}</td>
                     <td class="stat-cell">${col[4] || 0}</td>
                     <td class="stat-cell">${col[5] || 0}</td>
                     <td class="points-cell">${col[6] || 0}</td>
@@ -168,8 +167,7 @@
             }
         });
     } catch (error) {
-        console.error('Erro ao carregar:', error);
-        alert('Erro ao conectar com a planilha. Verifique o link CSV.');
+        console.error('Erro ao carregar classificação:', error);
     }
 }
     carregarClassificacao();
