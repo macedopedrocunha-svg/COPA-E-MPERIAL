@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>COPA E-MPERIAL - Tabela de Jogos</title>
+    <title>COPA E-MPERIAL - JOGOS</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -10,7 +10,6 @@
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
-            background-color: #1A1A1A;
             color: #eeeeee;
             margin: 0;
             padding: 20px;
@@ -20,128 +19,74 @@
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.7); 
             z-index: -1;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        } 
+        .container { max-width: 1000px; margin: 0 auto; }
 
-        /* ESTILO DOS LINKS DO MENU */
-        .nav-menu {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            padding-top: 20px;
-        }
-
+        .nav-menu { margin-bottom: 20px; display: flex; gap: 10px; padding-top: 20px; }
         .nav-link {
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: 0.3s;
-            display: inline-block;
+            text-decoration: none; padding: 10px 20px; border-radius: 4px;
+            font-weight: bold; transition: 0.3s; display: inline-block;
         }
-
-        /* Botão Inativo */
-        .btn-blue {
-            color: white;
-            background: rgba(58, 124, 165, 0.8);
-            border-bottom: 3px solid #FBAE17;
-        }
-        .btn-blue:hover { background: #3A7CA5; }
-
-        /* Botão Ativo (Página atual) */
-        .btn-active {
-            background: #FBAE17;
-            color: #1A1A1A;
-        }
+        .btn-blue { color: white; background: rgba(58, 124, 165, 0.8); border-bottom: 3px solid #FBAE17; }
+        .btn-active { background: #FBAE17; color: #1A1A1A; }
 
         .event-header {
             background-color: rgba(58, 124, 165, 0.85);
             padding: 20px;
             border-bottom: 7px solid #FBAE17;
-            margin-bottom: 20px;
             border-radius: 8px 8px 0 0;
+            text-align: center;
         }
-
-        h1 { margin: 0; }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: rgba(36, 41, 47, 0.75); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
+            background-color: rgba(36, 41, 47, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: 0 0 8px 8px;
             overflow: hidden;
         }
 
         th {
-            background-color: rgba(49, 55, 62, 0.9);
-            padding: 12px;
-            text-align: left;
-            font-size: 11px;
-            text-transform: uppercase;
+            background-color: rgba(26, 26, 26, 0.9);
             color: #FBAE17;
+            padding: 15px;
+            text-transform: uppercase;
+            font-size: 12px;
         }
 
-        td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-        }
+        td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 
-        .team-name {
-            font-weight: bold;
-            width: 35%;
-            color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
+        .team-name { font-weight: bold; width: 35%; text-transform: uppercase; }
         .team-right { text-align: right; }
-
-        .score-cell {
-            text-align: center;
-            width: 15%;
-        }
-
+        
+        .score-cell { width: 15%; text-align: center; }
         .score {
-            background-color: #FBAE17;
-            color: #1A1A1A;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace; 
-            font-weight: bold;
-            font-size: 16px;
+            background: #FBAE17; color: #1A1A1A;
+            padding: 5px 15px; border-radius: 4px;
+            font-weight: bold; display: inline-block; min-width: 60px;
         }
 
-        .status { font-size: 12px; color: #bbb; text-align: center; }
-
-        /* EFEITO AO VIVO PULSANTE */
-        @keyframes pulsar-neon {
-            0% { text-shadow: 0 0 5px #ff4655; opacity: 1; }
-            50% { text-shadow: 0 0 15px #ff4655, 0 0 25px #ff4655; opacity: 0.8; }
-            100% { text-shadow: 0 0 5px #ff4655; opacity: 1; }
-        }
+        .status { text-align: center; font-weight: bold; font-size: 0.9em; width: 15%; }
 
         .live-link {
-            color: #ff4655;
-            text-decoration: none;
-            font-weight: bold;
-            animation: pulsar-neon 1.5s infinite;
+            color: #FF4655; text-decoration: none;
+            border: 1px solid #FF4655; padding: 3px 8px; border-radius: 4px;
+            animation: pulse 1.5s infinite;
         }
 
-        .live-link:hover {
-            text-decoration: underline;
-            color: #ff7a85;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 70, 85, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 70, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 70, 85, 0); }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="nav-menu">
             <a href="index.html" class="nav-link btn-active">JOGOS</a>
@@ -151,10 +96,10 @@
 
         <div class="event-header">
             <h1>COPA E-MPERIAL</h1>
-            <p>STAGE 1 • SEMANA 1</p>
+            <p>CONFRONTOS • SEASON 1</p>
         </div>
 
-       <table>
+        <table id="tabela-jogos">
             <thead>
                 <tr>
                     <th>HORA</th>
@@ -165,94 +110,55 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>17:00</td>
-                    <td class="team-name team-right">TIME U</td> 
-                    <td class="score-cell"><span class="score">0 - 0</span></td> 
-                    <td class="team-name">TIME O</td> 
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>18:00</td>
-                    <td class="team-name team-right">TIME A</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME P</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>19:00</td>
-                    <td class="team-name team-right">TIME X</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME Z</td>
-                    <td class="status">
-                        <a href="https://www.twitch.tv/atlcompufpel" target="_blank" class="live-link">AO VIVO</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>20:00</td>
-                    <td class="team-name team-right">TIME W</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME Y</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>21:00</td>
-                    <td class="team-name team-right">TIME DO MACEDAO</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME G</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>21:30</td>
-                    <td class="team-name team-right">TIME B</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME H</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>22:00</td>
-                    <td class="team-name team-right">MIBR</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME I</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>22:30</td>
-                    <td class="team-name team-right">TIME C</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME J</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>23:00</td>
-                    <td class="team-name team-right">TIME D</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME K</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>23:30</td>
-                    <td class="team-name team-right">TIME E</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME L</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>00:00</td>
-                    <td class="team-name team-right">TIME F</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME M</td>
-                    <td class="status">TBD</td>
-                </tr>
-                <tr>
-                    <td>00:30</td>
-                    <td class="team-name team-right">TIME G</td>
-                    <td class="score-cell"><span class="score">0 - 0</span></td>
-                    <td class="team-name">TIME N</td>
-                    <td class="status">TBD</td>
-                </tr>
-            </tbody>
+                </tbody>
         </table>
     </div>
+
+    <script>
+        // SUBSTITUA PELO SEU LINK CSV DA ABA JOGOS
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?gid=1824379697&single=true&output=csv';
+
+        async function carregarJogos() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                // Divide as linhas e remove o cabeçalho
+                const linhas = data.split('\n').slice(1); 
+                
+                const tabelaCorpo = document.querySelector('#tabela-jogos tbody');
+                tabelaCorpo.innerHTML = ''; 
+
+                linhas.forEach(linha => {
+                    // Divide por vírgula ou ponto e vírgula
+                    const col = linha.split(/[,;]/);
+                    
+                    // Só cria a linha se tiver dados (evita linhas vazias no fim da planilha)
+                    if (col.length >= 4 && col[1].trim() !== "") {
+                        const tr = document.createElement('tr');
+                        
+                        let statusHTML = col[4] ? col[4].trim() : "TBD";
+                        if (statusHTML.toUpperCase() === 'AO VIVO') {
+                            statusHTML = `<a href="https://www.twitch.tv/atlcompufpel" target="_blank" class="live-link">AO VIVO</a>`;
+                        }
+
+                        tr.innerHTML = `
+                            <td style="text-align: center;">${col[0]}</td>
+                            <td class="team-name team-right">${col[1]}</td>
+                            <td class="score-cell"><span class="score">${col[2] || '0 - 0'}</span></td>
+                            <td class="team-name">${col[3]}</td>
+                            <td class="status">${statusHTML}</td>
+                        `;
+                        tabelaCorpo.appendChild(tr);
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        carregarJogos();
+        // Atualiza a cada 1 minuto caso você mude o placar na planilha
+        setInterval(carregarJogos, 60000);
+    </script>
 </body>
 </html>
