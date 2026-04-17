@@ -131,44 +131,43 @@
 <script>
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?gid=1383739588&single=true&output=csv';
 
-    async function carregarClassificacao() {
-        try {
-            const response = await fetch(sheetURL);
-            const data = await response.text();
-            const linhas = data.split('\n');
-             // Se a primeira linha contiver a palavra "TIME" ou "#", nós pulamos, senão, usamos tudo.
-            if (linhas[0].toUpperCase().includes("TIME") || linhas[0].includes("#")) {
-                linhas.shift(); 
-}
-            
-            const tabelaCorpo = document.querySelector('tbody');
-            tabelaCorpo.innerHTML = ''; 
+   async function carregarClassificacao() {
+    try {
+        const response = await fetch(sheetClassificacaoURL);
+        const data = await response.text();
+        
+        // Divide o conteúdo em linhas
+        let linhas = data.split('\n').map(l => l.trim()).filter(l => l !== "");
 
-            linhas.forEach((linha, index) => {
-                const colunas = linha.split(',');
-                if (colunas.length < 2 || colunas[1].trim() === "") return;
-
-                const tr = document.createElement('tr');
-                
-                // Define a posição real baseada na ordem da tabela organizada
-                const posicaoReal = index + 1;
-                if (posicaoReal <= 4) tr.classList.add('top-4');
-
-                tr.innerHTML = `
-                    <td class="pos">${posicaoReal}º</td>
-                    <td class="team-col">${colunas[1]}</td>
-                    <td class="v-cell">${colunas[2] || 0}</td>
-                    <td class="d-cell">${colunas[3] || 0}</td>
-                    <td>${colunas[4] || 0}</td>
-                    <td>${colunas[5] || 0}</td>
-                    <td><strong>${colunas[6] || 0}</strong></td>
-                `;
-                tabelaCorpo.appendChild(tr);
-            });
-        } catch (error) {
-            console.error('Erro ao carregar os dados:', error);
+        // REGRA DE OURO: Se a primeira linha tiver títulos (ex: "Posição", "Time", "#"), nós removemos.
+        // Se a primeira linha já for um time, o código NÃO remove e o 1º lugar aparece!
+        if (linhas[0].toUpperCase().includes("TIME") || linhas[0].includes("#") || linhas[0].toUpperCase().includes("POSIÇÃO")) {
+            linhas.shift(); 
         }
+
+        const tabelaCorpo = document.querySelector('#tabela-classificacao tbody');
+        tabelaCorpo.innerHTML = ''; 
+
+        linhas.forEach((linha) => {
+            const col = linha.split(/[,;]/);
+            if (col.length < 2) return;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${col[0]}º</td>
+                <td class="team-name">${col[1]}</td>
+                <td class="stat-cell" style="color: #4CAF50;">${col[2] || 0}</td>
+                <td class="stat-cell" style="color: #f44336;">${col[3] || 0}</td>
+                <td class="stat-cell">${col[4] || 0}</td>
+                <td class="stat-cell">${col[5] || 0}</td>
+                <td class="points-cell">${col[6] || 0}</td>
+            `;
+            tabelaCorpo.appendChild(tr);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar classificação:', error);
     }
+}
 
     carregarClassificacao();
     setInterval(carregarClassificacao, 60000);
