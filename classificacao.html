@@ -133,43 +133,45 @@
 
   async function carregarClassificacao() {
     try {
+        // Use o link da aba TabelaOficial aqui
         const response = await fetch(sheetClassificacaoURL);
         const data = await response.text();
         
-        // Divide o conteúdo em linhas e remove espaços vazios
+        // Divide em linhas e limpa espaços
         let linhas = data.split('\n').map(l => l.trim()).filter(l => l !== "");
 
-        // FILTRO DEFINITIVO: Mantém apenas linhas que começam com um número (a posição)
-        // Isso remove automaticamente cabeçalhos como "Posição", "#" ou linhas de texto.
-        linhas = linhas.filter(linha => {
-            const primeiraColuna = linha.split(/[,;]/)[0];
-            return !isNaN(parseInt(primeiraColuna)); 
-        });
+        // Se a primeira linha for o cabeçalho (ex: tem a palavra "Time" ou "Posição"), removemos
+        if (linhas[0].toUpperCase().includes("TIME") || linhas[0].toUpperCase().includes("POS")) {
+            linhas.shift();
+        }
 
         const tabelaCorpo = document.querySelector('#tabela-classificacao tbody');
         tabelaCorpo.innerHTML = ''; 
 
         linhas.forEach((linha) => {
+            // Tenta separar por vírgula ou ponto e vírgula
             const col = linha.split(/[,;]/);
-            if (col.length < 2) return;
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${col[0]}º</td>
-                <td class="team-name">${col[1]}</td>
-                <td class="stat-cell" style="color: #4CAF50;">${col[2] || 0}</td>
-                <td class="stat-cell" style="color: #f44336;">${col[3] || 0}</td>
-                <td class="stat-cell">${col[4] || 0}</td>
-                <td class="stat-cell">${col[5] || 0}</td>
-                <td class="points-cell">${col[6] || 0}</td>
-            `;
-            tabelaCorpo.appendChild(tr);
+            
+            // Só cria a linha se tiver pelo menos o nome do time
+            if (col.length >= 2 && col[1].trim() !== "") {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${col[0].replace('º', '')}º</td>
+                    <td class="team-name">${col[1]}</td>
+                    <td class="stat-cell" style="color: #4CAF50;">${col[2] || 0}</td>
+                    <td class="stat-cell" style="color: #f44336;">${col[3] || 0}</td>
+                    <td class="stat-cell">${col[4] || 0}</td>
+                    <td class="stat-cell">${col[5] || 0}</td>
+                    <td class="points-cell">${col[6] || 0}</td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            }
         });
     } catch (error) {
-        console.error('Erro ao carregar classificação:', error);
+        console.error('Erro ao carregar:', error);
+        alert('Erro ao conectar com a planilha. Verifique o link CSV.');
     }
 }
-
     carregarClassificacao();
     setInterval(carregarClassificacao, 60000);
 </script>
