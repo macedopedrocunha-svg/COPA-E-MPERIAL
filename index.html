@@ -48,6 +48,7 @@
             backdrop-filter: blur(10px);
             border-radius: 0 0 8px 8px;
             overflow: hidden;
+            table-layout: fixed; /* Força a simetria das colunas */
         }
 
         th {
@@ -60,8 +61,22 @@
 
         td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 
-        .team-name { font-weight: bold; width: 35%; text-transform: uppercase; }
-        .team-right { text-align: right; }
+        /* AJUSTE DE SIMETRIA DOS TIMES */
+        .team-a { 
+            font-weight: bold; 
+            width: 35%; 
+            text-transform: uppercase; 
+            text-align: right; 
+            padding-right: 20px;
+        }
+
+        .team-b { 
+            font-weight: bold; 
+            width: 35%; 
+            text-transform: uppercase; 
+            text-align: left; 
+            padding-left: 20px;
+        }
         
         .score-cell { width: 15%; text-align: center; }
         .score {
@@ -70,6 +85,7 @@
             font-weight: bold; display: inline-block; min-width: 60px;
         }
 
+        .time-col { width: 10%; text-align: center; }
         .status { text-align: center; font-weight: bold; font-size: 0.9em; width: 15%; }
 
         .live-link {
@@ -102,11 +118,11 @@
         <table id="tabela-jogos">
             <thead>
                 <tr>
-                    <th>HORA</th>
-                    <th style="text-align: right;">TIME A</th>
-                    <th style="text-align: center;">PLACAR</th>
-                    <th>TIME B</th>
-                    <th style="text-align: center;">STATUS</th>
+                    <th style="width: 10%;">HORA</th>
+                    <th style="text-align: right; width: 35%;">TIME A</th>
+                    <th style="text-align: center; width: 15%;">PLACAR</th>
+                    <th style="text-align: left; width: 35%;">TIME B</th>
+                    <th style="text-align: center; width: 15%;">STATUS</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,24 +131,20 @@
     </div>
 
     <script>
-        // SUBSTITUA PELO SEU LINK CSV DA ABA JOGOS
         const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRly8c0eYhojmA0KX4aMxtYShdqJsKY9vI8oDjvTewqev7OepYJm9L5H5PZEL5_O0hZW9Y-gOrlNi63/pub?gid=1824379697&single=true&output=csv';
 
         async function carregarJogos() {
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
-                // Divide as linhas e remove o cabeçalho
                 const linhas = data.split('\n').slice(1); 
                 
                 const tabelaCorpo = document.querySelector('#tabela-jogos tbody');
                 tabelaCorpo.innerHTML = ''; 
 
                 linhas.forEach(linha => {
-                    // Divide por vírgula ou ponto e vírgula
                     const col = linha.split(/[,;]/);
                     
-                    // Só cria a linha se tiver dados (evita linhas vazias no fim da planilha)
                     if (col.length >= 4 && col[1].trim() !== "") {
                         const tr = document.createElement('tr');
                         
@@ -142,10 +154,10 @@
                         }
 
                         tr.innerHTML = `
-                            <td style="text-align: center;">${col[0]}</td>
-                            <td class="team-name team-right">${col[1]}</td>
+                            <td class="time-col">${col[0]}</td>
+                            <td class="team-a">${col[1]}</td>
                             <td class="score-cell"><span class="score">${col[2] || '0 - 0'}</span></td>
-                            <td class="team-name">${col[3]}</td>
+                            <td class="team-b">${col[3]}</td>
                             <td class="status">${statusHTML}</td>
                         `;
                         tabelaCorpo.appendChild(tr);
@@ -157,7 +169,6 @@
         }
 
         carregarJogos();
-        // Atualiza a cada 1 minuto caso você mude o placar na planilha
         setInterval(carregarJogos, 60000);
     </script>
 </body>
